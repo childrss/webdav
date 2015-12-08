@@ -5,6 +5,9 @@ remoteserver="example.com"
 remoteport=8675
 remoteshare="share"
 localmountpoint="/Volumes/localmountpoint"
+path_to_scripts="script/paths"
+
+
 mylogline="`date +"%b %d %Y %H:%M:%S"` $0"
 
 get_account () {
@@ -21,7 +24,7 @@ if [ "$(/bin/ls -A $localmountpoint)" ]; then
 else
     /bin/echo "$mylogline $localmountpoint is Empty, need to mount"
     /bin/mkdir $localmountpoint
-	/Users/Shared/Jenkins/keep-webdav-munki-repo-mounted.exp $remoteserver $remoteport $remoteshare $localmountpoint $(get_account) $(get_password)
+	$path_to_scripts/keep-webdav-munki-repo-mounted.exp $remoteserver $remoteport $remoteshare $localmountpoint $(get_account) $(get_password)
 fi
 
 
