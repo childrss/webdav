@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+timeout=15
+remoteserver="example.com"
+remoteport=8675
+remoteshare="share"
+localmountpoint="/Volumes/localmountpoint"
+mylogline="`date +"%b %d %Y %H:%M:%S"` $0"
+
+get_account () {
+  /usr/bin/security find-internet-password -s $remoteserver | grep acct | cut -f4 -d '"' 
+}
+
+get_password () {
+  /usr/bin/security find-internet-password -ws $remoteserver
+}
+
+if [ "$(/bin/ls -A $localmountpoint)" ]; then
+     /bin/echo "$mylogline $localmountpoint is not Empty, no need to mount"
+     exit 0
+else
+    /bin/echo "$mylogline $localmountpoint is Empty, need to mount"
+    /bin/mkdir $localmountpoint
+	/Users/Shared/Jenkins/keep-webdav-munki-repo-mounted.exp $remoteserver $remoteport $remoteshare $localmountpoint $(get_account) $(get_password)
+fi
+
+
+
+
