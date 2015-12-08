@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.example.keep-webdav-mounted</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/path/to/keep-webdav-munki-repo-mounted.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/path/to/com.example.keep-webdav-mounted.stderr</string>
+	<key>StandardOutPath</key>
+	<string>/path/to/com.example.keep-webdav-mounted.stdout</string>
+	<key>StartInterval</key>
+	<integer>60</integer>
+</dict>
+</plist>
