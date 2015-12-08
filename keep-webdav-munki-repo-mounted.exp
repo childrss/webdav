@@ -1,0 +1,30 @@
+#!/usr/bin/expect
+#
+
+# This script expects to be called with 6 paramenters from the command line (or another script)
+
+set remoteserver [lindex $argv 0]
+set remoteport [lindex $argv 1] 
+set remoteshare [lindex $argv 2]
+set localmountpoint [lindex $argv 3]
+set account [lindex $argv 4]
+set password [lindex $argv 5]
+
+# variables used within script only
+set timeout 15
+
+# shuts off the display to stdout so account name is not logged
+# you should turn this back on for debugging, but the account name will
+# show in the stdout/stderr log files
+log_user 0
+
+spawn /sbin/mount_webdav -i -s -v vol_name https://$remoteserver:$remoteport/$remoteshare/ $localmountpoint
+expect "name:" {
+send "$account\r"
+}
+expect timeout {
+exit
+} "word:" {
+send "$password\r"
+exp_continue
+}
