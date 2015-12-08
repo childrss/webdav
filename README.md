@@ -12,9 +12,11 @@ Use launchd paired with two scripts.  There may be a more consise way of doing t
 
 # Launchd
 
-Scheduling is handled by the launchd script.  Nothing too fancy here.  The launchd script calls the shell script.
+Scheduling is handled by the launchd script.  Nothing too fancy here.  The launchd script calls the shell script.  You'll want to configure the launchd script (or create your own) as the existing script won't work by default.
 
 # Shell script
+
+You'll need to customize the variables at the start to work for your needs.  And figure out where you want the scripts to live, and point your launchd plist at it.
 
 The shell script checks to see if the webdav network share is already mounted at the localmountpoint by attempting to get a directory listing.  If the directory listing returns an error (no directory) or an empty directory listing, then the script attempts to create the directory (ignoring the error if the directory already exists) and then calls the expect script.
 
