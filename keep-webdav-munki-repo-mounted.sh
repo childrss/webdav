@@ -18,15 +18,11 @@ get_password () {
   /usr/bin/security find-internet-password -ws $remoteserver
 }
 
-if [ "$(/bin/ls -A $localmountpoint)" ]; then
-     /bin/echo "$mylogline $localmountpoint is not Empty, no need to mount"
-     exit 0
+if mount | grep -q "on $localmountpoint"; then
+	/bin/echo "$mylogline $localmountpoint is mounted, no need to mount"
+	exit 0
 else
-    /bin/echo "$mylogline $localmountpoint is Empty, need to mount"
-    /bin/mkdir $localmountpoint
+	/bin/echo "$mylogline $localmountpoint is Empty, need to mount"
+	/bin/mkdir $localmountpoint
 	$path_to_scripts/keep-webdav-munki-repo-mounted.exp $remoteserver $remoteport $remoteshare $localmountpoint $(get_account) $(get_password)
 fi
-
-
-
-
